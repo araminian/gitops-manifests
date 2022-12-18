@@ -1,0 +1,83 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: blue-green
+    app.kubernetes.io/region: europe-west4
+    app.kubernetes.io/type: br
+    environment: prod
+  name: bluegreen-demo
+  namespace: br
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: http
+  selector:
+    app: blue-green
+    app.kubernetes.io/type: br
+    environment: prod
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: blue-green
+    app.kubernetes.io/region: europe-west4
+    app.kubernetes.io/type: br
+    environment: prod
+  name: bluegreen-demo-preview
+  namespace: br
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: http
+  selector:
+    app: blue-green
+    app.kubernetes.io/type: br
+    environment: prod
+  type: ClusterIP
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  labels:
+    app: blue-green
+    app.kubernetes.io/region: europe-west4
+    app.kubernetes.io/type: br
+    environment: prod
+  name: bluegreen-application
+  namespace: br
+spec:
+  replicas: 1
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      app: blue-green
+      app.kubernetes.io/type: br
+      environment: prod
+  strategy:
+    blueGreen:
+      activeService: bluegreen-demo
+      autoPromotionEnabled: false
+      previewService: bluegreen-demo-preview
+  template:
+    metadata:
+      labels:
+        app: blue-green
+        app.kubernetes.io/region: europe-west4
+        app.kubernetes.io/type: br
+        environment: prod
+    spec:
+      containers:
+      - image: rminz/br-application:prod@sha256:c74a9c7f325a40f11b35d6d9f7dbf7a9ea8df81b31fde64006a7c917b7dcdfbd
+        imagePullPolicy: Always
+        name: br
+        ports:
+        - containerPort: 80
+          name: http
+          protocol: TCP
