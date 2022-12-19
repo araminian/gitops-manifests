@@ -1,4 +1,12 @@
 apiVersion: v1
+data:
+  FOO: 50fff17bfd930bb3
+kind: ConfigMap
+metadata:
+  name: cm
+  namespace: br
+---
+apiVersion: v1
 kind: Service
 metadata:
   labels:
@@ -74,7 +82,10 @@ spec:
         environment: prod
     spec:
       containers:
-      - image: rminz/br-application:prod@sha256:84dd95fd958f4a8ecc3502495ba3893d791a1b2b910f51bd45fd2d2fb6d708e2
+      - envFrom:
+        - configMapRef:
+            name: cm
+        image: rminz/br-application:prod@sha256:84dd95fd958f4a8ecc3502495ba3893d791a1b2b910f51bd45fd2d2fb6d708e2
         imagePullPolicy: Always
         name: br
         ports:
