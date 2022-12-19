@@ -74,7 +74,7 @@ spec:
         environment: prod
     spec:
       containers:
-      - image: rminz/br-application:prod@sha256:ebe2313d7b8953bd731468c6c63e24f4ead41fa3f64dd4737e2d5e0b5137cff8
+      - image: rminz/br-application:prod@sha256:84dd95fd958f4a8ecc3502495ba3893d791a1b2b910f51bd45fd2d2fb6d708e2
         imagePullPolicy: Always
         name: br
         ports:
