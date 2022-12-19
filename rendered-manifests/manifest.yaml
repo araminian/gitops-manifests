@@ -1,9 +1,9 @@
 apiVersion: v1
 data:
-  FOO: c53fad3044ca30ca
+  FOO: 88cf83491920c85f
 kind: ConfigMap
 metadata:
-  name: cm-c53fad3044ca30ca
+  name: cm
   namespace: br
 ---
 apiVersion: v1
@@ -84,8 +84,8 @@ spec:
       containers:
       - envFrom:
         - configMapRef:
-            name: cm-c53fad3044ca30ca
-        image: rminz/br-application:prod@sha256:109fe046928ec20d60979cda41c9892497775386d6bb6cd03352764a95d9bbb0
+            name: cm
+        image: rminz/br-application:prod@sha256:8595415a85d4b513dfd32fc84d0ab3561d5407e0a964fd7df9b97c0f0cd1ac82
         imagePullPolicy: Always
         name: br
         ports:
