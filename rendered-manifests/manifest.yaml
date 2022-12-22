@@ -1,6 +1,6 @@
 apiVersion: v1
 data:
-  FOO: 084dc6bd8eb5278d
+  FOO: 3cc6812bd8f2fd14
 kind: ConfigMap
 metadata:
   name: cm
@@ -65,10 +65,12 @@ spec:
           template:
             spec:
               containers:
-              - command:
-                - cowsay
-                - BOOO
-                image: docker/whalesay
+              - args:
+                - -c
+                - echo 'BOOM';exit 0;
+                command:
+                - /bin/sh
+                image: busybox
                 name: sample
               restartPolicy: Never
 ---
