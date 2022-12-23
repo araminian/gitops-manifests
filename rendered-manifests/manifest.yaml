@@ -1,6 +1,6 @@
 apiVersion: v1
 data:
-  FOO: 77a7913a6feb75a0
+  FOO: 0a6a2d8ffeef6030
 kind: ConfigMap
 metadata:
   name: cm
@@ -77,7 +77,7 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: AnalysisTemplate
 metadata:
-  name: sample
+  name: post-sample
   namespace: br
 spec:
   metrics:
