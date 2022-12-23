@@ -1,6 +1,6 @@
 apiVersion: v1
 data:
-  FOO: 70d699bec2763d24
+  FOO: 77a7913a6feb75a0
 kind: ConfigMap
 metadata:
   name: cm
@@ -75,6 +75,30 @@ spec:
               restartPolicy: Never
 ---
 apiVersion: argoproj.io/v1alpha1
+kind: AnalysisTemplate
+metadata:
+  name: sample
+  namespace: br
+spec:
+  metrics:
+  - name: post-sample
+    provider:
+      job:
+        spec:
+          backoffLimit: 1
+          template:
+            spec:
+              containers:
+              - args:
+                - -c
+                - echo 'BOOM! POST-TEST!';exit 0;
+                command:
+                - /bin/sh
+                image: busybox
+                name: post-sample
+              restartPolicy: Never
+---
+apiVersion: argoproj.io/v1alpha1
 kind: Rollout
 metadata:
   labels:
@@ -96,6 +120,9 @@ spec:
     blueGreen:
       activeService: bluegreen-demo
       autoPromotionEnabled: false
+      postPromotionAnalysis:
+        templates:
+        - templateName: post-sample
       prePromotionAnalysis:
         templates:
         - templateName: sample
