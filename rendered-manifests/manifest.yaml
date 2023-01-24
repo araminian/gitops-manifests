@@ -1,6 +1,6 @@
 apiVersion: v1
 data:
-  FOO: 8015a561
+  FOO: 32d76ac6
 kind: ConfigMap
 metadata:
   name: cm
@@ -67,7 +67,7 @@ spec:
               containers:
               - args:
                 - -c
-                - echo 'BOOM';exit 1;
+                - echo 'BOOM';exit 0;
                 command:
                 - /bin/sh
                 image: busybox
@@ -139,7 +139,7 @@ spec:
       - envFrom:
         - configMapRef:
             name: cm
-        image: rminz/br-application:prod@sha256:e698b23ffd737ab9e1e193f17ee4522266a703223858493a85b4596903499564
+        image: rminz/br-application:prod@sha256:687df9b7a648928a48b78b57f51eaf04d4645ac56f220662fca77144dfeb4838
         imagePullPolicy: Always
         name: br
         ports:
