@@ -1,6 +1,6 @@
 apiVersion: v1
 data:
-  FOO: 32d76ac6
+  FOO: b2bd5bb2
 kind: ConfigMap
 metadata:
   name: cm
@@ -139,7 +139,7 @@ spec:
       - envFrom:
         - configMapRef:
             name: cm
-        image: rminz/br-application:prod@sha256:687df9b7a648928a48b78b57f51eaf04d4645ac56f220662fca77144dfeb4838
+        image: rminz/br-application:prod@sha256:174d286ddf57acced59fe1a79df05ae3380c2f3185fe8cba460d08a7dcd3547e
         imagePullPolicy: Always
         name: br
         ports:
