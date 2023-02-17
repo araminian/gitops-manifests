@@ -6,7 +6,7 @@ metadata:
 ---
 apiVersion: v1
 data:
-  FOO: ff8b956f
+  FOO: c821ad02
 kind: ConfigMap
 metadata:
   name: cm
